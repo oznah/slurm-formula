@@ -1,0 +1,11 @@
+{% import_yaml "slurm/defaults.yaml" as defaults %}
+{% import_yaml "slurm/osmap.yaml" as osmap %}
+
+{# get settings from the os_family grain #}
+{% set osfam = salt['grains.filter_by'](osmap) or {} %}
+
+{# merge os_family specific data over defaults #}
+{% do defaults.slurm.update(osfam) %}
+
+{# merge actual slurm pillar into above combined dict #}
+{% set slurm = salt['pillar.get']('slurm', default=defaults.slurm, merge=True) %}

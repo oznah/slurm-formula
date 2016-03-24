@@ -1,0 +1,37 @@
+slurm:
+  global:
+    ControlMachine: linux0
+    MpiDefault: none
+    ProctrackType: proctrack/pgid
+    ReturnToService: 1
+    SlurmctldPidFile: /var/run/slurmctld.pid
+    SlurmdPidFile: /var/run/slurmd.pid
+    SlurmdSpoolDir: /var/spool/slurmd
+    SlurmUser: slurm
+    StateSaveLocation: /var/spool/slurmctld
+    SwitchType: switch/none
+    TaskPlugin: task/none
+  timers:
+    SlurmctldTimeout: 120 
+    SlurmdTimeout: 300 
+  scheduling:
+    FastSchedule: 1
+    SchedulerType: sched/backfill
+    SelectType: select/linear
+  logging_accounting:
+    AccountingStorageType: accounting_storage/none
+    ClusterName: cluster
+    JobAcctGatherType: jobacct_gather/none
+    SlurmctldLogFile: /var/log/slurm/slurmctld.log
+    SlurmdLogFile: /var/log/slurm/slurmd.log
+  slurmdbd:
+    AuthType: auth/munge
+    DbdHost: localhost
+    DbdPort: 6819
+    LogFile: /var/log/slurm/slurmdbd.log
+    SlurmUser: slurm
+    StorageHost: localhost
+    StorageLoc: slurm_acct_db
+    StoragePass: slurmdbpass
+    StorageType: accounting_storage/mysql
+    StorageUser: slurm

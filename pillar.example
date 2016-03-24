@@ -1,0 +1,52 @@
+# use pillar to override existing defaults or add additional settings
+# for the respective configuration categories
+
+slurm:
+  global:
+    ControlMachine: linux0
+    MpiDefault: none
+    ProctrackType: proctrack/pgid
+    ReturnToService: 1
+    SlurmctldPidFile: /var/run/slurmctld.pid
+    SlurmdPidFile: /var/run/slurmd.pid
+    SlurmdSpoolDir: /var/spool/slurmd
+    SlurmUser: slurm
+    StateSaveLocation: /var/spool/slurmctld
+    SwitchType: switch/none
+    TaskPlugin: task/none
+  timers:
+    SlurmctldTimeout: 120 
+    SlurmdTimeout: 300 
+  scheduling:
+    FastSchedule: 1
+    SchedulerType: sched/backfill
+    SelectType: select/linear
+  logging_accounting:
+    AccountingStorageType: accounting_storage/none
+    ClusterName: cluster
+    JobAcctGatherType: jobacct_gather/none
+    SlurmctldLogFile: /var/log/slurm/slurmctld.log
+    SlurmdLogFile: /var/log/slurm/slurmd.log
+	nodes:
+		linux[1-32]:
+			CPUs: 1
+      CoresPerSocket: 1
+      ThreadsPerCore: 1
+      RealMemory: 489
+      State: UNKNOWN
+  partitions:
+    debug:
+      Nodes: linux[1-32]
+      Default: 'YES'
+      MaxTime: INFINITE
+      State: UP
+  slurmdbd:
+    DbdHost: minion2
+    StorageHost: minion2
+    StoragePass: mrbear23
+
+# for slurmdb.sls to work you need to have mariadb, mariadb-server, & MySQL-python installed
+# finally you need to set the mysql root password and have it defined in the pillar
+mysql:
+  RootPass: mrbear23
+
