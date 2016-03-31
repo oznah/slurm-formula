@@ -6,12 +6,12 @@ include:
 install_slurmmaster:
   pkg.installed:
     - pkgs:
-      - slurm
-      - slurm-devel
-      - slurm-munge
-      - slurm-plugins
-      - slurm-sjobexit
-      - slurm-sjstat
+      - {{ slurm.pkgSlurm }}
+      - {{ slurm.pkgSlurmDevel }}
+      - {{ slurm.pkgSlurmMunge }}
+      - {{ slurm.pkgSlurmPlugins }}
+      - {{ slurm.pkgSlurmSjobexit }}
+      - {{ slurm.pkgSlurmSjstat }}
 
 mkdir_slurmctld_spool:
   file.directory:

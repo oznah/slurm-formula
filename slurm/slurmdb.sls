@@ -6,8 +6,8 @@ include:
 install_slurmdb:
   pkg.installed:
     - pkgs:
-      - slurm-slurmdbd
-      - slurm-sql
+      - {{ slurm.pkgSlurmDbd }}
+      - {{ slurm.pkgSlurmSQL }}
 
 touch_slurmdbd_log:
   file.managed:

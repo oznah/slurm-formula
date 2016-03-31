@@ -1,3 +1,16 @@
-RedHat: {}
+RedHat: 
+  slurm:
+    pkgSlurm: slurm
+    pkgSlurmDevel: slurm-devel
+    pkgSlurmMunge: slurm-munge
+    pkgSlurmPam: slurm-pam_slurm
+    pkgSlurmPerlapi: slurm-perlapi
+    pkgSlurmPlugins: slurm-plugins
+    pkgSlurmSjobexit: slurm-sjobexit
+    pkgSlurmSjstat: slurm-sjstat
+    pkgSlurmDbd: slurm-slurmdbd
+    pkgSlurmDbDirect: slurm-slurmdb-direct
+    pkgSlurmSQL: slurm-sql
+    pkgSlurmTorque: slurm-torque
 Debian: {}
 Arch: {}
