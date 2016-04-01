@@ -2,6 +2,7 @@
 
 include:
   - slurm.config
+  - munge
 
 install_slurmworker:
   pkg.installed:
