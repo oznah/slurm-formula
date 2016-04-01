@@ -11,7 +11,12 @@ Install and configure slurm controller/master, worker, and database.
 See the full `Salt formulas installation and usage
 instructions <https://docs.saltstack.com/en/latest/topics/development/conventions/formulas.html>`__
 
-**Note:** Tested on RHEL 7 only.
+**Note:** Tested on RHEL 7 only. **Note:**
+`Munge <http://dun.github.io/munge/>`__ is recommended & used in slurm
+but Munge is it's own thing so you will also need a munge slurm state
+that will implement munge in your environment. That should be pretty
+easy, but for now I will leave it as an exercise for the user. Just note
+this formula depends on Munge.
 
 Available States
 ~~~~~~~~~~~~~~~~
@@ -53,8 +58,8 @@ slurm.slurmdb
    slurmdbd.conf, and add log file.
 -  Create slurm accounting db
 
-\*\* Requires: \*\* mariadb-server already be installed & mysql root
-password in pillar.
+**Requires:** mariadb-server already be installed & mysql root password
+in pillar.
 
 slurm.worker
 ^^^^^^^^^^^^
