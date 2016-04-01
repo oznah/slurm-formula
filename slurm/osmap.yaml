@@ -12,5 +12,7 @@ RedHat:
     pkgSlurmDbDirect: slurm-slurmdb-direct
     pkgSlurmSQL: slurm-sql
     pkgSlurmTorque: slurm-torque
+    pkgMySQLpython: MySQL-python
+    pkgMySQL: mariadb
 Debian: {}
 Arch: {}
