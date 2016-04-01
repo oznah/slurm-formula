@@ -1,3 +1,7 @@
+install_slurm:
+  pkg.installed:
+    - name: slurm
+
 groupadd_slurm:
   group.present:
     - name: slurm
