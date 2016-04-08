@@ -1,4 +1,5 @@
 {% from "slurm/map.jinja" import slurm with context %}
+{% from "slurm/map.jinja" import pkgs with context %}
 
 include:
   - slurm.config
@@ -6,16 +7,18 @@ include:
 install_slurmmaster:
   pkg.installed:
     - pkgs:
-      - {{ slurm.pkgSlurm }}
-      - {{ slurm.pkgSlurmDevel }}
-      - {{ slurm.pkgSlurmMunge }}
-      - {{ slurm.pkgSlurmPlugins }}
-      - {{ slurm.pkgSlurmSjobexit }}
-      - {{ slurm.pkgSlurmSjstat }}
+      - {{ pkgs.Slurm }}
+      - {{ pkgs.SlurmDevel }}
+      - {{ pkgs.SlurmMunge }}
+      - {{ pkgs.SlurmPerlapi }}
+      - {{ pkgs.SlurmPlugins }}
+      - {{ pkgs.SlurmSjobexit }}
+      - {{ pkgs.SlurmSjstat }}
+      - {{ pkgs.SlurmTorque }}
 
 mkdir_slurmctld_spool:
   file.directory:
-    - name: {{ slurm.global.StateSaveLocation }}
+    - name: {{ slurm.StateSaveLocation }}
     - user: slurm
     - group: slurm
     - mode: 0755
@@ -23,7 +26,7 @@ mkdir_slurmctld_spool:
 
 mkdir_slurmctld_log:
   file.managed:
-    - name: {{ slurm.logging_accounting.SlurmctldLogFile }}
+    - name: {{ slurm.SlurmctldLogFile }}
     - source: ~
     - user: slurm
     - group: slurm
@@ -36,3 +39,13 @@ start_slurmctld:
     - name: slurmctld
     - watch:
       - file: /etc/slurm/slurm.conf
+
+reload_slurmctld:
+  cmd.wait:
+    - name: scontrol reconfigure
+    - require:
+      - file: /etc/slurm/slurm.conf
+    - watch:
+      - file: /etc/slurm/slurm.conf
+
+

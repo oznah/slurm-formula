@@ -4,5 +4,13 @@
 {# get settings from the os_family grain via osmap and merge with defaults #}
 {% set defaults = salt['grains.filter_by'](osmap, merge=defaults) or {} %}
 
-{# merge actual slurm pillar into above combined dict #}
+{# merge actual pkgs pillar into combined dict #}
+{% set pkgs = salt['pillar.get']('pkgs', default=defaults.pkgs, merge=True) %}
+{# merge actual slurm pillar into combined dict #}
 {% set slurm = salt['pillar.get']('slurm', default=defaults.slurm, merge=True) %}
+{# merge actual slurmdbd pillar into combined dict #}
+{% set slurmdbd = salt['pillar.get']('slurmdbd', default=defaults.slurmdbd, merge=True) %}
+{# merge actual nodes pillar into combined dict #}
+{% set nodes = salt['pillar.get']('nodes', default=defaults.nodes, merge=True) %}
+{# merge actual partitions pillar into combined dict #}
+{% set partitions = salt['pillar.get']('partitions', default=defaults.partitions, merge=True) %}

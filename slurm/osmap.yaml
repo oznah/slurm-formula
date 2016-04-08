@@ -1,18 +1,18 @@
 RedHat: 
-  slurm:
-    pkgSlurm: slurm
-    pkgSlurmDevel: slurm-devel
-    pkgSlurmMunge: slurm-munge
-    pkgSlurmPam: slurm-pam_slurm
-    pkgSlurmPerlapi: slurm-perlapi
-    pkgSlurmPlugins: slurm-plugins
-    pkgSlurmSjobexit: slurm-sjobexit
-    pkgSlurmSjstat: slurm-sjstat
-    pkgSlurmDbd: slurm-slurmdbd
-    pkgSlurmDbDirect: slurm-slurmdb-direct
-    pkgSlurmSQL: slurm-sql
-    pkgSlurmTorque: slurm-torque
-    pkgMySQLpython: MySQL-python
-    pkgMySQL: mariadb
+  pkgs:
+    Slurm: slurm
+    SlurmDevel: slurm-devel
+    SlurmMunge: slurm-munge
+    SlurmPam: slurm-pam_slurm
+    SlurmPerlapi: slurm-perlapi
+    SlurmPlugins: slurm-plugins
+    SlurmSjobexit: slurm-sjobexit
+    SlurmSjstat: slurm-sjstat
+    SlurmDbd: slurm-slurmdbd
+    SlurmDbDirect: slurm-slurmdb-direct
+    SlurmSQL: slurm-sql
+    SlurmTorque: slurm-torque
+    MySQLpython: MySQL-python
+    MySQL: mariadb
 Debian: {}
 Arch: {}
