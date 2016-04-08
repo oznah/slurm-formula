@@ -1,4 +1,6 @@
 {% from "slurm/map.jinja" import slurm with context %}
+{% from "slurm/map.jinja" import pkgs with context %}
+{% from "slurm/map.jinja" import slurmdbd with context %}
 
 include:
   - slurm.config
@@ -8,29 +10,36 @@ include:
 install_slurmdb:
   pkg.installed:
     - pkgs:
-      - {{ slurm.pkgSlurmDbd }}
-      - {{ slurm.pkgSlurmSQL }}
-      - {{ slurm.pkgSlurm }}
+      - {{ pkgs.Slurm }}
+      - {{ pkgs.SlurmDevel }}
+      - {{ pkgs.SlurmMunge }}
+      - {{ pkgs.SlurmPlugins }}
+      - {{ pkgs.SlurmDbd }}
+      - {{ pkgs.SlurmSQL }}
 
 # salt requires a few things to be able to config the database
 # MySQL-python and mariadb (NOTE: mysql server not setup here)
 install_slurmdb_prereq:
   pkg.installed:
     - pkgs:
-      - {{ slurm.pkgMySQLpython }}
-      - {{ slurm.pkgMySQL }}
+      - {{ pkgs.MySQLpython }}
+      - {{ pkgs.MySQL }}
 
 # salt database connection params
-push_dbconfig:
-  file.managed:
-    - name: /etc/salt/minion.d/database.conf
-    - source: salt://slurm/files/database.conf
-    - template: jinja
-    - mode: 0644
+# this is needed so the salt minion can connect to mysql
+# since this is a minion config it should be defined in a different sls
+# https://docs.saltstack.com/en/latest/ref/states/all/salt.states.mysql_user.html
+#
+# push_dbconfig:
+#   file.managed:
+#     - name: /etc/salt/minion.d/database.conf
+#     - source: salt://slurm/files/database.conf
+#     - template: jinja
+#     - mode: 0644
 
 touch_slurmdbd_log:
   file.managed:
-    - name: {{ slurm.slurmdbd.LogFile }}
+    - name: {{ slurmdbd.LogFile }}
     - source: ~
     - user: slurm
     - group: slurm
@@ -51,28 +60,28 @@ push_slurmdbdconf:
 # setup database before starting slurmdbd
 {% set mysql_rootpass = salt['pillar.get']('mysql:RootPass', '') %}
 
-create_{{ slurm.slurmdbd.StorageLoc }}:
+create_{{ slurmdbd.StorageLoc }}:
   mysql_database.present:
-    - name: {{ slurm.slurmdbd.StorageLoc }}
+    - name: {{ slurmdbd.StorageLoc }}
 
 create_slurm_mysqluser:
   mysql_user.present:
-    - name: {{ slurm.slurmdbd.StorageUser }}
-    - host: {{ slurm.slurmdbd.StorageHost }}
-    - password: {{ slurm.slurmdbd.StoragePass }}
+    - name: {{ slurmdbd.StorageUser }}
+    - host: {{ slurmdbd.StorageHost }}
+    - password: {{ slurmdbd.StoragePass }}
     
-grants_{{ slurm.slurmdbd.StorageLoc }}_local:
+grants_{{ slurmdbd.StorageLoc }}_local:
   mysql_grants.present:
     - grant: all
-    - database: {{ slurm.slurmdbd.StorageLoc }}.*
-    - user: {{ slurm.slurmdbd.StorageUser }}
+    - database: {{ slurmdbd.StorageLoc }}.*
+    - user: {{ slurmdbd.StorageUser }}
     - host: localhost
 
-grants_{{ slurm.slurmdbd.StorageLoc }}:
+grants_{{ slurmdbd.StorageLoc }}:
   mysql_grants.present:
     - grant: all
-    - database: {{ slurm.slurmdbd.StorageLoc }}.*
-    - user: {{ slurm.slurmdbd.StorageUser }}
+    - database: {{ slurmdbd.StorageLoc }}.*
+    - user: {{ slurmdbd.StorageUser }}
     - host: {{ salt['grains.get']('host', '') }}
 
 start_slurmdbd:
@@ -88,5 +97,5 @@ start_slurmdbd:
 
 sacctadd_cluster:
   cmd.run:
-    - name: /usr/bin/sacctmgr -i add cluster {{ slurm.logging_accounting.ClusterName }} && echo {{ slurm.logging_accounting.ClusterName }} >> /etc/slurm/.clusters
-    - unless: grep -i {{ slurm.logging_accounting.ClusterName }} /etc/slurm/.clusters
+    - name: /usr/bin/sacctmgr -i add cluster {{ slurm.ClusterName }} && echo {{ slurm.ClusterName }} >> /etc/slurm/.clusters
+    - unless: grep -i {{ slurm.ClusterName }} /etc/slurm/.clusters
