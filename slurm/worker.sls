@@ -1,4 +1,5 @@
 {% from "slurm/map.jinja" import slurm with context %}
+{% from "slurm/map.jinja" import pkgs with context %}
 
 include:
   - slurm.config
@@ -7,16 +8,18 @@ include:
 install_slurmworker:
   pkg.installed:
     - pkgs:
-      - {{ slurm.pkgSlurm }}
-      - {{ slurm.pkgSlurmDevel }}
-      - {{ slurm.pkgSlurmMunge }}
-      - {{ slurm.pkgSlurmPlugins }}
-      - {{ slurm.pkgSlurmSjobexit }}
-      - {{ slurm.pkgSlurmSjstat }}
+      - {{ pkgs.Slurm }}
+      - {{ pkgs.SlurmDevel }}
+      - {{ pkgs.SlurmMunge }}
+      - {{ pkgs.SlurmPerlapi }}
+      - {{ pkgs.SlurmPlugins }}
+      - {{ pkgs.SlurmSjobexit }}
+      - {{ pkgs.SlurmSjstat }}
+      - {{ pkgs.SlurmTorque }}
 
 mkdir_slurmd_spool:
   file.directory:
-    - name: {{ slurm.global.SlurmdSpoolDir }}
+    - name: {{ slurm.SlurmdSpoolDir }}
     - user: slurm
     - group: slurm
     - mode: 0755
@@ -27,7 +30,7 @@ mkdir_slurmd_spool:
 
 touch_slurmd_log:
   file.managed:
-    - name: {{ slurm.logging_accounting.SlurmdLogFile }}
+    - name: {{ slurm.SlurmdLogFile }}
     - source: ~
     - user: slurm
     - group: slurm
@@ -44,5 +47,3 @@ start_slurmd:
       - file: /etc/slurm/slurm.conf
       - user: slurm
       - group: slurm
-    - watch:
-      - file: /etc/slurm/slurm.conf
