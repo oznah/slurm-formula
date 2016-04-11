@@ -32,3 +32,9 @@ slurmdbd:
   StoragePass: slurmdbpass
   StorageType: accounting_storage/mysql
   StorageUser: slurm
+
+cgroups:
+  CgroupAutomount: 'yes'
+  CgroupReleaseAgentDir: /etc/slurm/cgroup
+  ConstrainCores: 'no'
+  ConstrainRAMSpace: 'no'
