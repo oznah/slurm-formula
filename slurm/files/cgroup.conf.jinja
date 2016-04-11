@@ -1,0 +1,12 @@
+###
+#
+# Slurm cgroup support configuration file
+#
+# See man slurm.conf and man cgroup.conf for further
+# information on cgroup configuration parameters
+#--
+{% from "slurm/map.jinja" import cgroups with context %}
+{%- for key, value in cgroups.iteritems() %}
+{{ key }}={{ value -}}
+{% endfor %}
+
