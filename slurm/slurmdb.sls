@@ -4,18 +4,18 @@
 
 include:
   - slurm.config
-  - munge
 
 # install slurm database pkgs
 install_slurmdb:
   pkg.installed:
     - pkgs:
-      - {{ pkgs.Slurm }}
-      - {{ pkgs.SlurmDevel }}
-      - {{ pkgs.SlurmMunge }}
-      - {{ pkgs.SlurmPlugins }}
-      - {{ pkgs.SlurmDbd }}
-      - {{ pkgs.SlurmSQL }}
+    {% for key, value in pkgs.iteritems() %}
+      {% if 'Slurm' in key %}
+      {# install all slurm packages #}
+      - {{ value }}
+      {% else %}
+      {% endif %}
+    {% endfor %}
 
 # salt requires a few things to be able to config the database
 # MySQL-python and mariadb (NOTE: mysql server not setup here)

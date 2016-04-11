@@ -3,19 +3,17 @@
 
 include:
   - slurm.config
-  - munge
 
 install_slurmworker:
   pkg.installed:
     - pkgs:
-      - {{ pkgs.Slurm }}
-      - {{ pkgs.SlurmDevel }}
-      - {{ pkgs.SlurmMunge }}
-      - {{ pkgs.SlurmPerlapi }}
-      - {{ pkgs.SlurmPlugins }}
-      - {{ pkgs.SlurmSjobexit }}
-      - {{ pkgs.SlurmSjstat }}
-      - {{ pkgs.SlurmTorque }}
+    {% for key, value in pkgs.iteritems() %}
+      {% if 'Slurm' in key %}
+      {# install all slurm packages #}
+      - {{ value }}
+      {% else %}
+      {% endif %}
+    {% endfor %}
 
 mkdir_slurmd_spool:
   file.directory:
@@ -35,7 +33,6 @@ touch_slurmd_log:
     - user: slurm
     - group: slurm
     - require:
-      - file: /var/log/slurm
       - user: slurm
       - group: slurm
 
@@ -44,6 +41,5 @@ start_slurmd:
     - enable: True
     - name: slurmd
     - require:
-      - file: /etc/slurm/slurm.conf
       - user: slurm
       - group: slurm

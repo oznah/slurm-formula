@@ -4,17 +4,16 @@
 include:
   - slurm.config
 
-install_slurmmaster:
+install_slurmcontroller:
   pkg.installed:
     - pkgs:
-      - {{ pkgs.Slurm }}
-      - {{ pkgs.SlurmDevel }}
-      - {{ pkgs.SlurmMunge }}
-      - {{ pkgs.SlurmPerlapi }}
-      - {{ pkgs.SlurmPlugins }}
-      - {{ pkgs.SlurmSjobexit }}
-      - {{ pkgs.SlurmSjstat }}
-      - {{ pkgs.SlurmTorque }}
+    {% for key, value in pkgs.iteritems() %}
+      {% if 'Slurm' in key %}
+      {# install all slurm packages #}
+      - {{ value }}
+      {% else %}
+      {% endif %}
+    {% endfor %}
 
 mkdir_slurmctld_spool:
   file.directory:
