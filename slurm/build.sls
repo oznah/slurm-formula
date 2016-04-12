@@ -6,7 +6,6 @@ install_slurmbuild:
       - gcc
       - gtk2-devel
       - hwloc-devel
-      - json-c
       - lua-devel
       - make
       - mariadb-devel
