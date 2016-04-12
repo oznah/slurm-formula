@@ -9,7 +9,6 @@ install_slurmbuild:
       - lua-devel
       - make
       - mariadb-devel
-      - mariadb-server
       - munge-devel
       - munge-libs
       - ncurses-devel
