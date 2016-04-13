@@ -2,6 +2,7 @@ RedHat:
   pkgs:
     Slurm: slurm
     SlurmDevel: slurm-devel
+    SlurmLua: slurm-lua
     SlurmMunge: slurm-munge
     SlurmPam: slurm-pam_slurm
     SlurmPerlapi: slurm-perlapi
