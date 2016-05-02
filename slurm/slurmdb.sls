@@ -57,6 +57,14 @@ push_slurmdbdconf:
     - mode: 0644
     - template: jinja
 
+push_slurm_logrotate:
+  file.managed:
+    - name: /etc/logrotate.d/slurmdbd
+    - source: salt://slurm/files/slurmdbd.logrotate
+    - user: root
+    - group: root
+    - mode: 0644
+
 # setup database before starting slurmdbd
 {% set mysql_rootpass = salt['pillar.get']('mysql:RootPass', '') %}
 

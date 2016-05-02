@@ -32,6 +32,14 @@ mkdir_slurmctld_log:
     - require:
       - file: /var/log/slurm
 
+push_slurm_logrotate:
+  file.managed:
+    - name: /etc/logrotate.d/slurmctld
+    - source: salt://slurm/files/slurmctld.logrotate
+    - user: root
+    - group: root
+    - mode: 0644
+
 start_slurmctld:
   service.running:
     - enable: True
@@ -46,5 +54,3 @@ reload_slurmctld:
       - file: /etc/slurm/slurm.conf
     - watch:
       - file: /etc/slurm/slurm.conf
-
-
