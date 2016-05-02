@@ -11,7 +11,7 @@ Install and configure slurm controller/master, worker, and database.
 See the full `Salt formulas installation and usage
 instructions <https://docs.saltstack.com/en/latest/topics/development/conventions/formulas.html>`__
 
-**Note:** Tested on RHEL 7 only. **Note:**
+**Note:** Tested on CENTOS/RHEL 7 only. **Note:**
 `Munge <http://dun.github.io/munge/>`__ is recommended & used in slurm
 but Munge is it's own thing so you will also need a munge slurm state
 that will implement munge in your environment. That should be pretty
@@ -23,9 +23,12 @@ Available States
 
 -  `slurm <#slurm>`__
 -  `slurm.build <#slurm.build>`__
+-  `slurm.cgroups <#slurm.cgroups>`__
 -  `slurm.config <#slurm.config>`__
 -  `slurm.controller <#slurm.controller>`__
+-  `slurm.login <#slurm.login>`__
 -  `slurm.slurmdb <#slurm.slurmdb>`__
+-  `slurm.spankX11 <#slurm.spankX11>`__
 -  `slurm.worker <#slurm.worker>`__
 
 slurm
@@ -37,6 +40,12 @@ slurm.build
 ^^^^^^^^^^^
 
 Install packages needed to build slurm rpms.
+
+slurm.cgroups
+^^^^^^^^^^^^^
+
+Install base cgroups config. User will need to also add relevent config
+to slurm.conf
 
 slurm.config
 ^^^^^^^^^^^^
@@ -51,6 +60,12 @@ slurm.controller
 Install slurmctld related packages, start service, create spool
 directory, and add log file.
 
+slurm.login
+^^^^^^^^^^^
+
+Include slurm.config and install other slurm packages so utilities are
+available, but don't start any daemons.
+
 slurm.slurmdb
 ^^^^^^^^^^^^^
 
@@ -60,6 +75,11 @@ slurm.slurmdb
 
 **Requires:** mariadb-server already be installed & mysql root password
 in pillar.
+
+slurm.spankX11
+^^^^^^^^^^^^^^
+
+Install slurm-spank-X11 and drop in config file.
 
 slurm.worker
 ^^^^^^^^^^^^
