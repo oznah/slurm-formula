@@ -5,7 +5,7 @@
 include:
   - slurm.config
 
-install_slurmworker:
+install_slurmlogin:
   pkg.installed:
     - pkgs:
     {% for key, value in pkgs.iteritems() %}
