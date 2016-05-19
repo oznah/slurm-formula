@@ -92,13 +92,6 @@ grants_{{ slurmdbd.StorageLoc }}:
     - user: {{ slurmdbd.StorageUser }}
     - host: {{ salt['grains.get']('host', '') }}
 
-grants_{{ slurmdbd.StorageLoc }}_fqdn:
-  mysql_grants.present:
-    - grant: all
-    - database: {{ slurmdbd.StorageLoc }}.*
-    - user: {{ slurmdbd.StorageUser }}
-    - host: {{ salt['grains.get']('id', '') }}
-
 start_slurmdbd:
   service.running:
     - enable: True
