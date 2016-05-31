@@ -1,6 +1,6 @@
 install_spankX11:
   pkg.installed:
-    - name: slurm-spank-X11
+    - name: slurm-spank-x11
 
 push_plugstack-conf:
   file.managed:
