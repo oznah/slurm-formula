@@ -41,6 +41,7 @@ touch_slurmdbd_log:
   file.managed:
     - name: {{ slurmdbd.LogFile }}
     - source: '~'
+    - replace: False
     - user: slurm
     - group: slurm
     - require:
