@@ -40,7 +40,7 @@ install_slurmdb_prereq:
 touch_slurmdbd_log:
   file.managed:
     - name: {{ slurmdbd.LogFile }}
-    - source: ~
+    - source: '~'
     - user: slurm
     - group: slurm
     - require:
