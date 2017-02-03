@@ -40,7 +40,7 @@ install_slurmdb_prereq:
 touch_slurmdbd_log:
   file.managed:
     - name: {{ slurmdbd.LogFile }}
-    - source: '~'
+    - source: ~
     - replace: False
     - user: slurm
     - group: slurm
@@ -62,7 +62,6 @@ push_slurm_logrotate:
   file.managed:
     - name: /etc/logrotate.d/slurmdbd
     - source: salt://slurm/files/slurmdbd.logrotate
-    - replace: True
     - user: root
     - group: root
     - mode: 0644
