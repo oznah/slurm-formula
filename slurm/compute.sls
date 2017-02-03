@@ -29,7 +29,7 @@ mkdir_slurmd_spool:
 touch_slurmd_log:
   file.managed:
     - name: {{ slurm.SlurmdLogFile }}
-    - source: ~
+    - source: '~'
     - replace: False
     - user: slurm
     - group: slurm
