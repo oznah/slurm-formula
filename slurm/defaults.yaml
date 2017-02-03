@@ -38,3 +38,7 @@ cgroups:
   CgroupReleaseAgentDir: /etc/slurm/cgroup
   ConstrainCores: 'no'
   ConstrainRAMSpace: 'no'
+
+nodes: {}
+
+partitions: {}
