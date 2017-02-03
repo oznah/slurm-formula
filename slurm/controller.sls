@@ -27,6 +27,7 @@ mkdir_slurmctld_log:
   file.managed:
     - name: {{ slurm.SlurmctldLogFile }}
     - source: ~
+    - replace: False
     - user: slurm
     - group: slurm
     - require:

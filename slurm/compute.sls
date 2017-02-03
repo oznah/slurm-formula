@@ -30,6 +30,7 @@ touch_slurmd_log:
   file.managed:
     - name: {{ slurm.SlurmdLogFile }}
     - source: ~
+    - replace: False
     - user: slurm
     - group: slurm
     - require:
