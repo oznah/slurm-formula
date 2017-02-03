@@ -26,7 +26,7 @@ mkdir_slurmctld_spool:
 mkdir_slurmctld_log:
   file.managed:
     - name: {{ slurm.SlurmctldLogFile }}
-    - source: '~'
+    - source: ~
     - replace: False
     - user: slurm
     - group: slurm
@@ -37,7 +37,6 @@ push_slurm_logrotate:
   file.managed:
     - name: /etc/logrotate.d/slurmctld
     - source: salt://slurm/files/slurmctld.logrotate
-    - replace: True
     - user: root
     - group: root
     - mode: 0644
