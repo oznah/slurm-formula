@@ -40,3 +40,5 @@ cgroups:
   ConstrainRAMSpace: 'no'
 
 nodes: {}
+
+partitions: {}
