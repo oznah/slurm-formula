@@ -41,6 +41,7 @@ push_slurm_logrotate:
   file.managed:
     - name: /etc/logrotate.d/slurmd
     - source: salt://slurm/files/slurmd.logrotate
+    - replace: True
     - user: root
     - group: root
     - mode: 0644
