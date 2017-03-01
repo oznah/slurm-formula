@@ -50,7 +50,7 @@ start_slurmctld:
 
 reload_slurmctld:
   cmd.wait:
-    - name: scontrol reconfigure
+    - name: sleep 5; scontrol reconfigure
     - require:
       - file: /etc/slurm/slurm.conf
     - watch:
