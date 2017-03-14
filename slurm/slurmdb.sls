@@ -58,7 +58,7 @@ push_slurmdbdconf:
     - mode: 0644
     - template: jinja
 
-push_slurm_logrotate:
+push_slurmdb_logrotate:
   file.managed:
     - name: /etc/logrotate.d/slurmdbd
     - source: salt://slurm/files/slurmdbd.logrotate
