@@ -33,7 +33,7 @@ mkdir_slurmctld_log:
     - require:
       - file: /var/log/slurm
 
-push_slurm_logrotate:
+push_slurmctl_logrotate:
   file.managed:
     - name: /etc/logrotate.d/slurmctld
     - source: salt://slurm/files/slurmctld.logrotate
