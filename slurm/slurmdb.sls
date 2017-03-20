@@ -86,6 +86,13 @@ grants_{{ slurmdbd.StorageLoc }}_local:
     - user: {{ slurmdbd.StorageUser }}
     - host: localhost
 
+grants_{{ slurmdbd.StorageLoc }}_fqdn:
+  mysql_grants.present:
+    - grant: all
+    - database: {{ slurmdbd.StorageLoc }}.*
+    - user: {{ slurmdbd.StorageUser }}
+    - host: {{ salt['grains.get']('fqdn', '') }}
+
 grants_{{ slurmdbd.StorageLoc }}:
   mysql_grants.present:
     - grant: all
