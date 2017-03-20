@@ -36,17 +36,19 @@ nodes:
     ThreadsPerCore: 1
     RealMemory: 489
     State: UNKNOWN
+# Since we need to ensure the consistent ordering of partitions, we need to implement
+# partitions as a list.
 partitions:
-  part1:
-    Nodes: linux[1-32]
-    Default: 'YES'
-    MaxTime: INFINITE
-    State: UP
-  part2:
-    Nodes: linux[1-32]
-    Default: 'YES'
-    MaxTime: INFINITE
-    State: UP
+  - part1:
+      Nodes: linux[1-32]
+      Default: 'YES'
+      MaxTime: INFINITE
+      State: UP
+  - part2:
+      Nodes: linux[1-32]
+      Default: 'YES'
+      MaxTime: INFINITE
+      State: UP
 slurmdbd:
   DbdHost: hostname
   StorageHost: hostname
