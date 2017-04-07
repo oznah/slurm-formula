@@ -10,10 +10,13 @@
 {% endfor %}
 
 
-## COMPUTE NODES & PARTITIONS ##
+## NODE DEFINITIONS ##
 {%- for nodename, settings in nodes.iteritems() %}
 NodeName={{ nodename }} {% for key, value in settings.iteritems() %}{{ key }}={{ value }} {% endfor -%}
-{% endfor %}
-{%- for partitionname, settings in partitions.iteritems() %}
-PartitionName={{ partitionname }} {% for key, value in settings.iteritems() %}{{ key }}={{ value }} {% endfor -%}
-{% endfor %}
+{%- endfor %}
+## PARTITION DEFINITIONS ##
+{%- for partition in partitions %}
+{%- for partname, settings in partition.iteritems() %}
+PartitionName={{ partname }} {% for key, value in settings.iteritems() %} {{ key }}={{ value }} {% endfor -%}
+{% endfor -%}
+{% endfor -%}

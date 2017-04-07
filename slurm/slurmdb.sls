@@ -58,7 +58,7 @@ push_slurmdbdconf:
     - mode: 0644
     - template: jinja
 
-push_slurm_logrotate:
+push_slurmdb_logrotate:
   file.managed:
     - name: /etc/logrotate.d/slurmdbd
     - source: salt://slurm/files/slurmdbd.logrotate
@@ -86,6 +86,13 @@ grants_{{ slurmdbd.StorageLoc }}_local:
     - database: {{ slurmdbd.StorageLoc }}.*
     - user: {{ slurmdbd.StorageUser }}
     - host: localhost
+
+grants_{{ slurmdbd.StorageLoc }}_fqdn:
+  mysql_grants.present:
+    - grant: all
+    - database: {{ slurmdbd.StorageLoc }}.*
+    - user: {{ slurmdbd.StorageUser }}
+    - host: {{ salt['grains.get']('fqdn', '') }}
 
 grants_{{ slurmdbd.StorageLoc }}:
   mysql_grants.present:
